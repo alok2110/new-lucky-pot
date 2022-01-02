@@ -184,3 +184,40 @@ module.exports.addResultDeclare = async (req, res) => {
     console.log(error);
   }
 };
+
+module.exports.getResultDeclare = async (req, res) => {
+  try {
+    const getData = await ResultDeclare.find();
+    return res.status(200).json(getData);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports.editResultDeclare = async (req, res) => {
+  const { date, time } = req.body;
+  try {
+    const editData = await ResultDeclare.findByIdAndUpdate(
+      {
+        _id: ObjectId(req.params.id),
+      },
+      { date, time }
+    );
+    return res
+      .status(200)
+      .json({ msg: "Result declare successfully added", editData });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports.deleteResultDeclare = async (req, res) => {
+  try {
+    const deleteData = await ResultDeclare.findByIdAndRemove({
+      _id: ObjectId(req.params.id),
+    });
+    return res.status(200).json({ msg: "Result declare successfully deleted" });
+  } catch (error) {
+    console.log(error);
+  }
+};
