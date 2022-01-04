@@ -12,6 +12,7 @@ const {
   getResultDeclare,
   editResultDeclare,
   deleteResultDeclare,
+  getAdminData,
 } = require("../controllers/adminController");
 router.post("/registerAdmin", register);
 router.post("/loginAdmin", login);
@@ -26,4 +27,5 @@ router.post("/addResultDeclare", addResultDeclare);
 router.get("/getResultDeclare", getResultDeclare);
 router.post("/editResultDeclare/:id", editResultDeclare);
 router.get("/deleteResultDeclare/:id", deleteResultDeclare);
+router.get("/getAdminData", getAdminData);
 module.exports = router;

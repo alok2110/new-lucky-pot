@@ -221,3 +221,12 @@ module.exports.deleteResultDeclare = async (req, res) => {
     console.log(error);
   }
 };
+
+module.exports.getAdminData = async (req, res) => {
+  try {
+    const adminData = await Admin.findOne({});
+    return res.status(200).json(adminData);
+  } catch (error) {
+    console.log(error);
+  }
+};
