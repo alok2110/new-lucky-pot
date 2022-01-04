@@ -12,6 +12,7 @@ const {
   showAllUser,
   showUserCoinDebitTransaction,
   showUserCoinCreditTransaction,
+  loggedUserDetail,
 } = require("../controllers/userController");
 router.post("/register", registerValiations, register);
 router.post("/login", loginValiations, login);
@@ -22,5 +23,6 @@ router.post("/sendCoinToAdmin", sendCoinToAdmin);
 router.get("/showAllUser", showAllUser);
 router.post("/showUserCoinDebitTransaction", showUserCoinDebitTransaction);
 router.post("/showUserCoinCreditTransaction", showUserCoinCreditTransaction);
+router.post("/loggedUserDetail", loggedUserDetail);
 
 module.exports = router;

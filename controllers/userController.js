@@ -298,3 +298,13 @@ module.exports.showAllUser = async (req, res) => {
     console.log(error);
   }
 };
+
+module.exports.loggedUserDetail = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const userDetail = await User.findOne({ email });
+    return res.status(200).json({ response: userDetail });
+  } catch (error) {
+    console.log(error);
+  }
+};
