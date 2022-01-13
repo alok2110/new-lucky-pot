@@ -140,7 +140,7 @@ const mailer = (email, otp) => {
     secure: true,
     auth: {
       user: "aloksaxena755@gmail.com",
-      pass: "wvkgyirquxcwgqzb",
+      pass: "qvvdwgcrzgbnetbl",
     },
   });
   var mailOptions = {
