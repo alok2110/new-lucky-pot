@@ -74,7 +74,7 @@ module.exports.findWinningNumber = async (req, res) => {
     const bidValueArray = getUserBidDetail.bid;
     const bidUserArray = getUserBidDetail.bidingUserId;
     const list2 = new Array();
-    for (var i = 1; i <= 5; i++) {
+    for (var i = 1; i <= 100; i++) {
       if (!bidNumberArray.includes(i)) {
         list2.push(i);
       }
