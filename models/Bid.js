@@ -1,11 +1,6 @@
 const { model, Schema } = require("mongoose");
 const bidSchema = new Schema(
   {
-    userId: {
-      type: Schema.Types.ObjectId,
-      ref: "user",
-      required: true,
-    },
     date: {
       type: String,
       default: new Date().toLocaleDateString(),
@@ -18,6 +13,13 @@ const bidSchema = new Schema(
       type: Array,
       required: true,
     },
+    bidingUserId: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "user",
+        required: true,
+      },
+    ],
   },
   { timestamps: true }
 );
