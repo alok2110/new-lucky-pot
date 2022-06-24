@@ -7,7 +7,11 @@ module.exports.placeBid = async (req, res) => {
   try {
     const getUserDetail = await User.findOne({ email });
     const currentDate = new Date().toLocaleDateString();
-    if (getUserDetail.coins >= bidPrice) {
+    let sum = 0;
+    for(let i = 0; i< bidPrice.length; i++) {
+      sum += bidPrice[i];
+    }
+    if (getUserDetail.coins >= sum) {
       const checkUserId = await Bid.findOne({
         userId: ObjectId(getUserDetail._id),
         date: currentDate,
@@ -25,7 +29,7 @@ module.exports.placeBid = async (req, res) => {
             },
           }
         );
-        const calcUserPoints = getUserDetail.coins - bidPrice;
+        const calcUserPoints = getUserDetail.coins - sum;
         const updateUser = await User.findByIdAndUpdate(
           {
             _id: ObjectId(getUserDetail._id),
@@ -42,7 +46,7 @@ module.exports.placeBid = async (req, res) => {
           bidNumber,
           bidingUserId: getUserDetail._id,
         });
-        const calcUserPoints = getUserDetail.coins - bidPrice;
+        const calcUserPoints = getUserDetail.coins - sum;
         const updateUser = await User.findByIdAndUpdate(
           {
             _id: ObjectId(getUserDetail._id),
@@ -98,3 +102,36 @@ module.exports.findWinningNumber = async (req, res) => {
     return res.status(500).json({ msg: error.message });
   }
 };
+
+var data = "Real-Time Update 1";
+var number = 120;
+
+module.exports.server_sent_timer = async (req, res) => {
+  
+  res.writeHead(200, {
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive'
+});
+
+var interval = setInterval(function(){
+    data = number;
+    console.log("SENT: "+data);
+    res.write("data: " + data + "\n\n")
+    number--;
+    if(data === 0) {
+      data = 120;
+    }
+}, 1000);
+
+// close
+res.on('close', () => {
+    clearInterval(interval);
+    res.end();
+});
+}
+
+// function randomInteger(min, max) {
+//     return Math.floor(Math.random() * (max - min + 1)) + min;
+// }  
+
