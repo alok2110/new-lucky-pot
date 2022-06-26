@@ -7,11 +7,7 @@ module.exports.placeBid = async (req, res) => {
   try {
     const getUserDetail = await User.findOne({ email });
     const currentDate = new Date().toLocaleDateString();
-    let sum = 0;
-    for(let i = 0; i< bidPrice.length; i++) {
-      sum += bidPrice[i];
-    }
-    if (getUserDetail.coins >= sum) {
+    if (getUserDetail.coins >= bidPrice) {
       const checkUserId = await Bid.findOne({
         userId: ObjectId(getUserDetail._id),
         date: currentDate,
@@ -29,7 +25,7 @@ module.exports.placeBid = async (req, res) => {
             },
           }
         );
-        const calcUserPoints = getUserDetail.coins - sum;
+        const calcUserPoints = getUserDetail.coins - bidPrice;
         const updateUser = await User.findByIdAndUpdate(
           {
             _id: ObjectId(getUserDetail._id),
@@ -46,7 +42,7 @@ module.exports.placeBid = async (req, res) => {
           bidNumber,
           bidingUserId: getUserDetail._id,
         });
-        const calcUserPoints = getUserDetail.coins - sum;
+        const calcUserPoints = getUserDetail.coins - bidPrice;
         const updateUser = await User.findByIdAndUpdate(
           {
             _id: ObjectId(getUserDetail._id),
